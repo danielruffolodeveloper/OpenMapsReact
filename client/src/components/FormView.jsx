@@ -5,13 +5,19 @@ import MapView from '../components/MapView';
 const FormView = () => {
 
    
+    var [deliverFrom, setDeliverFrom] = useState('')
+    var [deliverTo, setDeliverTo] = useState('')
     var [searchItemsFrom, setSearchItemsFrom] = useState([])
     var [searchItemsTo, setSearchItemsTo] = useState([])
     var [apiKey, setApiKey] = useState('')
+    var [pois, setPOIs] = useState([])
+
+
 
     const searchHandelerFrom = (e) => {
         const fetchItems = async () => {
           const searchResult = await Search(e,apiKey)
+          console.log(searchResult)
           setSearchItemsFrom(searchResult)
 
         }
@@ -26,10 +32,30 @@ const FormView = () => {
         fetchItems(e)
       }
 
+      function setStartPos(obj) {
+        setDeliverFrom(obj.display_name)
+        setPOIs([...pois, obj]);
+        console.log(pois)
+        setSearchItemsFrom([])
+
+      }
+
+      function setEndPos(obj) {
+        setDeliverTo(obj.display_name)
+        setPOIs([...pois, obj]);
+        console.log(pois)
+        setSearchItemsTo([])
+
+
+      
+      }
+
+      
+
 
     return (
         <div className="row">
-            <div className="col">
+            <div className="col-3">
                 <p>Form View</p>
 
                 <form>
@@ -42,13 +68,13 @@ const FormView = () => {
 
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Deliver From</label>
-                        <input onChange={event => searchHandelerFrom(event.target.value)} type="search" className="form-control" id="deliverfrom" aria-describedby="deliverfrom"/>
+                        <input  onChange={event => searchHandelerFrom(event.target.value)} type="search" className="form-control" id="deliverfrom" aria-describedby="deliverfrom"/>
                         <small id="deliverfrom" className="form-text text-muted">Enter Address to Pickup From.</small>
                         <ul className="list-group list-group-flush">
 
                         {searchItemsFrom.map(item => (
                 <div className="list-group" key={item.place_id}>
-                  <li className="list-group-item" >{item.display_name}</li>
+                  <li onClick={() => setStartPos(item)} className="list-group-item" >{item.display_name}</li>
                 </div>
                 ))
               }
@@ -59,19 +85,18 @@ const FormView = () => {
                     
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Deliver To</label>
-                        <input onChange={event => searchHandelerTo(event.target.value)} type="search" className="form-control" id="deliverto" aria-describedby="deliverti"/>
+                        <input  onChange={event => searchHandelerTo(event.target.value)} type="search" className="form-control" id="deliverto" aria-describedby="deliverti"/>
                         <small id="emailHelp" className="form-text text-muted">Enter Address to Deliver To.</small>
 
                         <ul className="list-group list-group-flush">
 
-{searchItemsTo.map(item => (
-<div className="list-group" key={item.place_id}>
-<li className="list-group-item" key={item.place_id}>{item.display_name}</li>
-</div>
-))
-}
- 
-</ul>
+                            {searchItemsTo.map(item => (
+                                <div className="list-group" key={item.place_id}>
+                                <li onClick={() => setEndPos(item)} className="list-group-item" key={item.place_id}>{item.display_name}</li>
+                                </div>))
+                            }
+                            
+                        </ul>
 
                     </div>
                 
@@ -79,8 +104,8 @@ const FormView = () => {
                 </form>
                 
             </div>
-            <div className="col">
-                <MapView/>
+            <div className="col-9">
+                <MapView data={pois}/>
             </div>
         </div>
     )

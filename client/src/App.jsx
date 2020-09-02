@@ -6,7 +6,7 @@ import MainView from './pages/MainView';
 
 function App() {
   return (
-    <div className="container">
+    <div className="container-fluid">
         <Navbar/>
 
     <MainView/>
