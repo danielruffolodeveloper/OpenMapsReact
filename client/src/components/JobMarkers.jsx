@@ -23,6 +23,8 @@ export const JobMarkers = (props) => {
     
   ));
 
+  
+
 
 
                     return <Fragment>{markers_from}</Fragment>

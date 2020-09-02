@@ -4,10 +4,11 @@ import {JobMarkers} from './JobMarkers';
 
 const MapView = ({data}) => {
 
-    console.log('map', data)
 
     const [coordinates, setCoordinates] = useState();
     const [zoom, setZoom] = useState();
+
+
 
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const MapView = ({data}) => {
 
            <Map center={ coordinates } zoom={zoom}>
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"/>
-              {/* <Polyline color="blue" positions={polyline} /> */}
+              {/* <Polyline color="blue" positions={[["-37.897972"," 145.151382"]]} /> */}
               <JobMarkers data={data}/>
 
             </Map>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search } from "../api"
+import { Search,Directions } from "../api"
 import MapView from '../components/MapView';
 
 const FormView = () => {
@@ -44,10 +44,18 @@ const FormView = () => {
         setDeliverTo(obj.display_name)
         setPOIs([...pois, obj]);
         console.log(pois)
-        setSearchItemsTo([])
+        setSearchItemsTo([])      
+      }
 
+      const calculateHandeler = () => {
+          console.log(deliverFrom,deliverTo)
+        const fetchItems = async () => {
+          const Result = await Directions(deliverFrom,deliverTo,apiKey)
+          var body = await Result.json();
 
-      
+          console.log(body)
+        }
+        fetchItems()
       }
 
       
@@ -97,6 +105,11 @@ const FormView = () => {
                             }
                             
                         </ul>
+
+                    </div>
+
+                    <div className="form-group">
+                        <button onClick={() => calculateHandeler()} type="button" className="btn btn-primary">Calculate</button>
 
                     </div>
                 
