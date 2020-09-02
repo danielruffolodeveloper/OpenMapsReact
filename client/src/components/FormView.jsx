@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Search } from "../api"
+import MapView from '../components/MapView';
 
 const FormView = () => {
 
@@ -77,6 +78,9 @@ const FormView = () => {
                     {/* <button type="submit" class="btn btn-primary">Submit</button> */}
                 </form>
                 
+            </div>
+            <div className="col">
+                <MapView/>
             </div>
         </div>
     )
