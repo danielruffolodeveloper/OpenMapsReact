@@ -9,10 +9,10 @@ function App() {
     <div className="container">
       <Navbar/>
       <div className="row">
-        <div className="col">
+        <div className="col-6">
           <FormView/>
         </div>  
-        <div className="col">
+        <div className="col-6">
           <MapView/>
         </div>
       </div>

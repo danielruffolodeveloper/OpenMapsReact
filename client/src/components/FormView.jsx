@@ -6,10 +6,11 @@ const FormView = () => {
    
     var [searchItemsFrom, setSearchItemsFrom] = useState([])
     var [searchItemsTo, setSearchItemsTo] = useState([])
+    var [apiKey, setApiKey] = useState('')
 
     const searchHandelerFrom = (e) => {
         const fetchItems = async () => {
-          const searchResult = await Search(e)
+          const searchResult = await Search(e,apiKey)
           setSearchItemsFrom(searchResult)
 
         }
@@ -18,7 +19,7 @@ const FormView = () => {
 
       const searchHandelerTo = (e) => {
         const fetchItems = async () => {
-          const searchResult = await Search(e)
+          const searchResult = await Search(e,apiKey)
           setSearchItemsTo(searchResult)
         }
         fetchItems(e)
@@ -31,6 +32,13 @@ const FormView = () => {
                 <p>Form View</p>
 
                 <form>
+
+                <div className="form-group">
+                        <label htmlFor="exampleInputEmail1">API Key</label>
+                        <input value={apiKey} onChange={e => setApiKey(e.target.value)} type="search" className="form-control" id="apikey" aria-describedby="apikey"/>
+                        <small id="apikey" className="form-text text-muted">Click Here to get a API key.</small>
+                    </div>
+
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Deliver From</label>
                         <input onChange={event => searchHandelerFrom(event.target.value)} type="search" className="form-control" id="deliverfrom" aria-describedby="deliverfrom"/>
